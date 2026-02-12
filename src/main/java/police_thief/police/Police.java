@@ -27,16 +27,16 @@ public class Police implements Runnable {
 
 	
 
-	public Police(int id, List<Thief> thieves, int x, int y, int minX, int maxX, int minY, int maxY) {
+	public Police(int id, List<Thief> thieves, int minX, int minY, int maxX, int maxY) {
 		super();
 		this.id = id;
 		this.thieves = thieves;
 		this.arrestCount = new AtomicInteger(0);
-		this.x = x;
-		this.y = y;
+		this.x = minX;
+		this.y = minY;
 		this.minX = minX;
-		this.maxX = maxX;
 		this.minY = minY;
+		this.maxX = maxX;
 		this.maxY = maxY;
 		this.random = new Random();
 		
@@ -194,5 +194,9 @@ public class Police implements Runnable {
 	
 	public int getArrestCount() {
 		return arrestCount.get();
+	}
+
+	public int getId() {
+		return this.id;
 	}
 }

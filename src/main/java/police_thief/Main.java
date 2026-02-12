@@ -23,10 +23,16 @@ public class Main {
 
         // 3. 경찰 생성
         // 순찰 구역은 맵 전체(0~20)로 설정하고, 시작 위치는 (0,0)으로 지정합니다.
-        Police police = new Police(thieves, 0, 0, 0, 20, 0, 20, random);
+        List<Police> polices = new ArrayList<>();
+        polices.add(new Police(1, thieves, 0, 0, 10, 10));    // 좌상
+        polices.add(new Police(2, thieves, 11, 0, 20, 10));   // 우상
+        polices.add(new Police(3, thieves, 0, 11, 10, 20));   // 좌하
+        polices.add(new Police(4, thieves, 11, 11, 20, 20));  // 우하
+
+        
 
         // 4. 리포터(중계원) 생성
-        Reporter reporter = new Reporter(vault, thieves, police);
+        Reporter reporter = new Reporter(vault, thieves, polices);
 
         System.out.println("시뮬레이션 준비 완료. 스레드를 시작합니다...");
 
@@ -38,8 +44,9 @@ public class Main {
         }
 
         // 경찰 스레드 시작
-        Thread policeThread = new Thread(police, "Police-Thread");
-        policeThread.start();
+        for (Police police : polices) {
+            new Thread(police, "Police-" + police.getId()).start();
+        }
 
         // 리포터 스레드 시작 (화면 출력 담당)
         Thread reporterThread = new Thread(reporter, "Reporter-Thread");
