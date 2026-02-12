@@ -1,4 +1,4 @@
-package police_theif.vault;
+package police_thief.vault;
 
 public class Vault {
 	private int balance; // 현재 잔액

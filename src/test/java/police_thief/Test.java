@@ -1,4 +1,4 @@
-package police_theif;
+package police_thief;
 
 public class Test {
 
