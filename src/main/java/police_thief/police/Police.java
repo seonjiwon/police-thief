@@ -195,4 +195,9 @@ public class Police implements Runnable {
 	public int getArrestCount() {
 		return arrestCount.get();
 	}
+	
+	public int getId() {
+	    return id;
+	}
+
 }

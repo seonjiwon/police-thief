@@ -12,15 +12,15 @@ public class Reporter implements Runnable {
 	// === 변수 ===
 	private Vault vault; // 금고 참조
 	private List<Thief> thieves; // 도둑 목록 참조
-	private Police police; // 경찰 참조
+	private List<Police> polices; // 경찰 참조
 	private static final int MAP_SIZE = 21; // 맵 크기 (0~20 좌표)
 		
 	// === 생성자 ===
 
-	public Reporter(Vault vault, List<Thief> thieves, Police police) {
+	public Reporter(Vault vault, List<Thief> thieves, List<Police> polices) {
 		this.vault = vault;
 		this.thieves = thieves;
-		this.police = police;
+		this.polices = polices;
 	}
 
 	// === 메서드 ===
@@ -69,7 +69,11 @@ public class Reporter implements Runnable {
 		System.out.println("===== Police vs Thief Simulation =====");
 	    System.out.println("현재 시간: " + getCurrentTime());
 	    System.out.println("금고 잔액: " + vault.getBalance());
-	    System.out.println("체포 횟수: " + police.getArrestCount());
+	    int totalArrests = 0;
+        for (Police p : polices) {
+            totalArrests += p.getArrestCount();
+        }
+        System.out.println("체포 횟수: " + totalArrests);
 	    System.out.println("총 도난액: " + vault.getTotalStolen());
 	    System.out.println();
 	    
@@ -94,11 +98,12 @@ public class Reporter implements Runnable {
                     + " | 훔친 금액: " + thief.getStolenAmount());
         }
 	    
-	    int[] policePosition = police.getPosition();
 	    // 경찰 위치 출력
 	    System.out.println();
-        System.out.println("경찰 위치: (" + policePosition[0] + "," + policePosition[1] + ")");
-	    
+        for (Police p : polices) {
+            int[] pos = p.getPosition();
+            System.out.println("경찰 " + p.getId() + " 위치: (" + pos[0] + "," + pos[1] + ")");
+        }
 	        
 	}
 		/**
@@ -119,11 +124,11 @@ public class Reporter implements Runnable {
             return 'V';
         }
 		
-		int[] policePosition = police.getPosition();
-		
-		// 경찰 위치 'P' 심볼 반환 
-		if (policePosition[0] == x && policePosition[1] == y) {
-            return 'P';
+		for (Police p : polices) {
+            int[] pos = p.getPosition();
+            if (pos[0] == x && pos[1] == y) {
+                return 'P';
+            }
         }
 		
 		// 도둑 위치 심볼 반환 
