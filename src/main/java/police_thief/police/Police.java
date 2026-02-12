@@ -27,21 +27,21 @@ public class Police implements Runnable {
 
 	
 
-	public Police(int id, List<Thief> thieves, int x, int y, int minX, int maxX, int minY, int maxY) {
+	public Police(int id, List<Thief> thieves, int minX, int maxX, int minY, int maxY) {
 		super();
 		this.id = id;
 		this.thieves = thieves;
 		this.arrestCount = new AtomicInteger(0);
-		this.x = x;
-		this.y = y;
+		this.x = minX;
+		this.y = minY;
 		this.minX = minX;
 		this.maxX = maxX;
 		this.minY = minY;
 		this.maxY = maxY;
 		this.random = new Random();
-		
-		System.out.println("[ Police" + id + "] 생성 - " + "시작: (" + x + "," + y + "), " + "구역: (" + minX + "," + minY
-				+ ")~(" + maxX + "," + maxY + ")");
+//		
+//		System.out.println("[ Police" + id + "] 생성 - " + "시작: (" + x + "," + y + "), " + "구역: (" + minX + "," + minY
+//				+ ")~(" + maxX + "," + maxY + ")");
 	}
 
 	@Override
@@ -57,8 +57,8 @@ public class Police implements Runnable {
 					// 2. 현재 경찰의 포지션을 가져옴
 					int[] currentPosition = getPosition();
 
-					System.out.println("[ Police" + id + "] " + "Thief-" + target + " 추적 중... " + "("
-							+ currentPosition[0] + "," + currentPosition[1] + ")");
+//					System.out.println("[ Police" + id + "] " + "Thief-" + target + " 추적 중... " + "("
+//							+ currentPosition[0] + "," + currentPosition[1] + ")");
 
 					// 3. 도둑 쪽으로 이동
 					moveToward(target);
@@ -69,14 +69,16 @@ public class Police implements Runnable {
 						arrestCount.incrementAndGet();
 
 						int[] arrestPosition = getPosition();
-						System.out.println(
-								"[" + threadName + "] Thief-" + target.getId() + " 체포! " + "위치: (" + arrestPosition[0]
-										+ "," + arrestPosition[1] + ") " + "[총: " + arrestCount.get() + "회]");
+//						System.out.println(
+//								"[" + threadName + "] Thief-" + target.getId() + " 체포! " + "위치: (" + arrestPosition[0]
+//										+ "," + arrestPosition[1] + ") " + "[총: " + arrestCount.get() + "회]");
 					}
 
 				} else {
 					patrol();
 				}
+				
+				Thread.sleep(500);
 
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -195,9 +197,9 @@ public class Police implements Runnable {
 	public int getArrestCount() {
 		return arrestCount.get();
 	}
-	
-	public int getId() {
-	    return id;
-	}
 
+	public int getId() {
+		return id;
+	}	
+	
 }
