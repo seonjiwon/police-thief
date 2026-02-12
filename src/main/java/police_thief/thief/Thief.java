@@ -9,7 +9,6 @@ public class Thief implements Runnable{
 	private int id; // 도둑 고유번호
 	private Vault vault; // 금고
 	private int stolenAmount; // 훔친 가격
-	private volatile boolean caught = false;
 	private volatile ThiefState state; // 상태변수(훔쳤는지 여부)
 	
 	// x, y 좌표
@@ -50,7 +49,7 @@ public class Thief implements Runnable{
 	
 	@Override
 	public void run() {
-		while(!caught) {
+		while(state != ThiefState.ARRESTED) {
 			try {
 				// 이동
 				move();
@@ -126,15 +125,10 @@ public class Thief implements Runnable{
 	
 	
 	public void arrest() { // 체포 여부
-		caught = true;
 		this.state = state.ARRESTED;
 		System.out.println("Thief-" + id + " 체포되었습니다.");
 	}
-	
-	/// getter 선언
-//	public boolean isCaught() { // 잡힌 여부
-//		return caught;
-//	}
+
 	
 	public int[] getPosition() { // 위치 획득
 		// 각 도둑객체 위치 보호

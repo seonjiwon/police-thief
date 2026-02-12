@@ -14,7 +14,7 @@ public class GuiMain {
 		Vault vault = new Vault(100000);
 
 		List<Thief> thieves = new ArrayList<>();
-		for (int i = 1; i <= 3; i++) {
+		for (int i = 1; i <= 15; i++) {
 			thieves.add(new Thief(i, vault));
 		}
 

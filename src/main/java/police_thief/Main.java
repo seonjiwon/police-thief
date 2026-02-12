@@ -17,7 +17,7 @@ public class Main {
         
         // 2. 도둑 리스트 생성 및 초기화 (3명)
         List<Thief> thieves = new ArrayList<>();
-        for (int i = 1; i <= 3; i++) {
+        for (int i = 1; i <= 15; i++) {
             thieves.add(new Thief(i, vault));
         }
 

@@ -50,6 +50,12 @@ public class Police implements Runnable {
 
 		while (true) {
 			try {
+				
+				if (!hasActiveThief()) {
+					Thread.sleep(500);
+					continue;
+				}
+				
 				// 1. 순찰 구역내에 가장 가까운 도둑을 찾는다.
 				Thief target = findNearestThief();
 
@@ -80,10 +86,23 @@ public class Police implements Runnable {
 				
 				Thread.sleep(500);
 
-			} catch (Exception e) {
+			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	/**
+	 * ACTIVE 상태의 도둑이 있는지 확인
+	 * @return
+	 */
+	private boolean hasActiveThief() {
+		for (Thief thief : thieves) {
+			if (thief.getState() == Thief.ThiefState.ACTIVE) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**
@@ -100,7 +119,7 @@ public class Police implements Runnable {
 		int policeY = policePosition[1];
 
 		for (Thief thief : thieves) {
-			if (thief.isCaught()) {
+			if (thief.getState() == Thief.ThiefState.ARRESTED) {
 				continue;
 			}
 

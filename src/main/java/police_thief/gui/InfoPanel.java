@@ -75,9 +75,12 @@ public class InfoPanel extends JPanel {
 
 		sb.append("[도둑]\n");
 		for (Thief t : thieves) {
-			sb.append("도둑 ").append(t.getId()).append(" | 상태: ").append(t.isCaught() ? "체포됨" : "활동중").append(" | 위치: (")
-					.append(t.getX()).append(",").append(t.getY()).append(")").append(" | 훔친 금액: ")
-					.append(t.getStolenAmount()).append("\n");
+			sb.append("도둑 ").append(t.getId())
+			  .append(" | 상태: ").append(t.getState().getDescription())
+			  .append(" | 위치: (")
+			  .append(t.getX()).append(",").append(t.getY()).append(")")
+			  .append(" | 훔친 금액: ")
+			  .append(t.getStolenAmount()).append("\n");
 		}
 
 		sb.append("\n[경찰]\n");

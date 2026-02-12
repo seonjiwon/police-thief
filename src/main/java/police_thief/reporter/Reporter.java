@@ -105,7 +105,7 @@ public class Reporter implements Runnable {
 	    // 각 도둑 상세 정보 출력
 	    for (Thief thief : thieves) {
             System.out.println("도둑 " + thief.getId()
-                    + " | 상태: " + (thief.isCaught() ? "체포됨" : "활동중")
+                    + " | 상태: " + thief.getState().getDescription()
                     + " | 위치: (" + thief.getX() + "," + thief.getY() + ")"
                     + " | 훔친 금액: " + thief.getStolenAmount());
         }
@@ -155,7 +155,7 @@ public class Reporter implements Runnable {
             if (thief.getX() == x && thief.getY() == y) {
             	
             	// 체포된 상태면 'X' 반환 
-                if (thief.isCaught()) {
+                if (thief.getState() == Thief.ThiefState.ARRESTED) {
                     return "\u274C";  // ❌
                 }
                 // 활동중

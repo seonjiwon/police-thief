@@ -122,7 +122,7 @@ public class MapPanel extends JPanel {
 		// 도둑
 		for (Thief t : thieves) {
 			if (t.getX() == x && t.getY() == y) {
-				if (t.isCaught())
+				if (t.getState() == Thief.ThiefState.ARRESTED)
 					return "\u274C"; // ❌
 				return "\uD83E\uDD77"; // 🥷
 			}
