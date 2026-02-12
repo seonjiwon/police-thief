@@ -25,17 +25,21 @@ public class Police implements Runnable {
 
 	private Random random;
 
-	public Police(List<Thief> thieves, int x, int y, int minX, int maxX, int minY, int maxY, Random random) {
+	
+
+	public Police(int id, List<Thief> thieves, int x, int y, int minX, int maxX, int minY, int maxY) {
 		super();
+		this.id = id;
 		this.thieves = thieves;
+		this.arrestCount = new AtomicInteger(0);
 		this.x = x;
 		this.y = y;
 		this.minX = minX;
 		this.maxX = maxX;
 		this.minY = minY;
 		this.maxY = maxY;
-		this.random = random;
-
+		this.random = new Random();
+		
 		System.out.println("[ Police" + id + "] 생성 - " + "시작: (" + x + "," + y + "), " + "구역: (" + minX + "," + minY
 				+ ")~(" + maxX + "," + maxY + ")");
 	}
